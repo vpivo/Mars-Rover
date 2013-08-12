@@ -1,3 +1,4 @@
 require 'rover.rb'
-require 'io_parser.rb'
+require 'rover_controller.rb'
 require 'direction.rb'
+require 'plateau.rb'

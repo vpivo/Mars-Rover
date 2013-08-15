@@ -5,10 +5,21 @@ describe RoverController do
 	subject {RoverController.new('input.txt')}
 
 	describe '#intialize' do
-		it 'has an instruction file' do
-			expect(subject.file).to be_instance_of(Array)
-		end
+		context 'with valid input' do
+			it 'has an instruction file' do
+				expect(subject.file).to be_instance_of(Array)
+			end
 
+			it "doesn't have any rovers" do
+				expect(subject.rovers).to eq([])
+			end
+		end
+	end
+
+	describe "#parse_input" do
+		before(:each) do
+			subject.parse_input
+		end
 		it 'has a plateau' do
 			expect(subject.plateau).to be_instance_of(Plateau)
 		end
@@ -18,7 +29,7 @@ describe RoverController do
 		end
 
 		it 'returns the plateau width' do	
-			expect(subject.plateau.height).to eq(5)
+			expect(subject.plateau.width).to eq(5)
 		end
 
 		it 'created rovers' do
@@ -35,8 +46,12 @@ describe RoverController do
 	end
 
 	describe '#move_rovers' do
-		it 'move the rovers to correct position' do
-
+		it 'moves the rovers to correct position' do
+			subject.parse_input
+			subject.move_rovers
+			expect(subject.rovers.first.x).to eq(1)
+			expect(subject.rovers.first.y).to eq(3)
+			expect(subject.rovers.first.direction.facing).to eq('N')
 		end
 	end
 end
